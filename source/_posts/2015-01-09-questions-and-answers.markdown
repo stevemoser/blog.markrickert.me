@@ -19,7 +19,7 @@ My RoadTrek has a shower built in (with a 6 gallon water heater), but I rarely u
 
 > I like the way the RoadTreks are laid out.  How long have you been living in yours?
 
-I set out on the road on August 15th, 2015. I sold everything I owned (or donated it) and locked the keys to my apartment inside for my landlord. I sold my car the day before and my motorcycle a few weeks before that. So at the time of this writing, I’ve been living a nomadic lifestyle for about 5 months and I’m loving it! I’ve got no plans to going back to house or apartment dwelling at this time.
+I set out on the road on August 15th, 2014. I sold everything I owned (or donated it) and locked the keys to my apartment inside for my landlord. I sold my car the day before and my motorcycle a few weeks before that. So at the time of this writing, I’ve been living a nomadic lifestyle for about 5 months and I’m loving it! I’ve got no plans to going back to house or apartment dwelling at this time.
 
 > Do you have moisture problems when it is real cold out or does your propane heater dry out the air enough while you have it on?
 
