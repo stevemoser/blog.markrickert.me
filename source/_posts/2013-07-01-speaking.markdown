@@ -1,0 +1,70 @@
+---
+title: Speaking
+date: 2013-07-01 00:00 UTC
+layout: post
+tags:
+---
+
+I’m available to speak at conferences. Just [send me an email](mailto:mark@otgapps.io?Subject=Speaking%20Inquiry)!
+
+My specialties include (but not limited to):
+
+* RubyMotion
+* iOS Development / Objective-C
+* Physical security & lock picking
+* Mobile device data forensics
+* Wordpress
+* Arduino, Raspberry Pi & hardware hacking
+* Rapid hardware prototyping
+
+## Upcoming Speaking Engagements:
+
+None
+
+## Previous Speaking Engagements:
+
+**The Internet of Things. One Day your sentient home will kill you**May 1-3, 2014[ConvergeSE 2014](http://convergese.com/) Columbia, SC
+
+**The Internet of Things. One Day your sentient home will kill you ([video](http://skookum.com/blog/friday-tech-talks-mark-rickert-on-the-internet-of-things-and-the-killer-sentient-home/))**
+October 22, 2013[Charlotte Regional Technology Executives Council](http://techexeccouncil.org/) (CRTEC)  
+Charlotte, NC  
+–&–  
+December 6, 2013  
+Skookum Digital Works Tech Talks  
+Charlotte, NC
+
+**Smart People Make Beer**
+September 17, 2013[Ignite Charlotte](http://www.ignitecharlotte.org/)  
+Charlotte, NC
+
+**An Introduction to Ruby Motion**
+April 27, 2013[ConvergeSE](http://convergese.com/speakers.php#mark-rickert)  
+Columbia, SC  
+–&–  
+February 1, 2013  
+Skookum Digital Works Tech Talks  
+Charlotte, NC
+
+**Developing for iPhone and iPad - How They’re Different**
+January 20, 2012  
+Skookum Digital Works Tech Talks  
+Charlotte, NC  
+–&–  
+February 15, 2012  
+Fablocker Hackerspace ioXchange  
+Winston-Salem, NC
+
+**Drupal Ninja vs. Wordpress Warrior ([video](http://vimeo.com/moogaloop.swf?clip_id=29676004&amp;fullscreen=1))**
+September 2, 2011  
+Skookum Digital Works Tech Talks  
+Charlotte, NC  
+
+**Basic Lock Picking ([video](http://vimeo.com/22509013))**
+April 1, 2011  
+Skookum Digital Works Tech Talks  
+Charlotte, NC  
+
+**Arduino Hacking 102 - LCDs, motors, sensors, libraries**
+December 10, 2010  
+Skookum Digital Works Tech Talks  
+Charlotte, NC
