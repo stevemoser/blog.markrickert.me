@@ -23,7 +23,7 @@ I set out on the road on August 15th, 2015. I sold everything I owned (or donate
 
 > Do you have moisture problems when it is real cold out or does your propane heater dry out the air enough while you have it on?
 
-I use [Reflectix](http://www.reflectixinc.com/) in most of my windows for insulation and blocking light. It’s a great product and I know a lot of other RVers who use it. The only moisture problems I have is in the mornings there’s moisture between the Reflectix and the rear window (presumably from me breathing all night so close to it). Other than that, the heater does a good job of drying out the van… sometimes it does _too good_  of a job so I keep a bottle of water by me at night that I can drink from so I’m not too dehydrated in the morning.
+I use [Reflectix](http://www.homedepot.com/p/Reflectix-16-in-x-25-ft-Double-Reflective-Insulation-with-Staple-Tab-ST16025/100012574) in most of my windows for insulation and blocking light. It’s a great product and I know a lot of other RVers who use it. The only moisture problems I have is in the mornings there’s moisture between the Reflectix and the rear window (presumably from me breathing all night so close to it). Other than that, the heater does a good job of drying out the van… sometimes it does _too good_  of a job so I keep a bottle of water by me at night that I can drink from so I’m not too dehydrated in the morning.
 
 > What is your heating cost?  Spend much time North or in cold weather?
 
