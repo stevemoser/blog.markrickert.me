@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Crap! An Xcode Update Wiped Out My iOS 6 SDK Again! - Mark Rickert</title>
+  <meta name="author" content="Mark Rickert">
+
+  
+  <meta name="description" content="If you&rsquo;re an iOS developer that works on lots of varied client projects, you have probably tried (unsuccessfully, like me) to manage multiple &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.markrickert.me/blog/crap-an-xcode-update-wiped-out-my-ios-6-sdk-again/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Mark Rickert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Mark Rickert</a></h1>
+  
+    <h2>Digital Nomad</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.markrickert.me/blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Crap! An Xcode Update Wiped Out My iOS 6 SDK Again!</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-14T00:00:00Z" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>If you&rsquo;re an iOS developer that works on lots of varied client projects, you have probably tried (unsuccessfully, like me) to manage multiple SDK versions in Xcode.</p>
+
+<p>Unfortunately, I have clients that are still trying to release software with the iOS 6 SDK. Sometimes it&rsquo;s just not worth it to update the entire application to iOS 7 just for a little bug fix, but most of the time I have to deploy using the iOS 6 SDK simply because the client doesn&rsquo;t want to take the time and money to update the entire look and feel of their application. ==Business implications of this decision aside==, I recommend what I think I should to do the client, but ultimately I need to implement what they want. Yes, anecdotal evidence suggests that Apple accepts submissions using the previous generation SDK.</p>
+
+<p>This leads to a problem: ==keeping old versions of SDKs around==. I used to just throw the old SDK version inside the <em>Xcode.app</em> and call it a day. But then if I forgot to keep that ~1gb folder around when I hit that &ldquo;Update&rdquo; button in the App Store app, the new version of Xcode would erase my old SDK folders. This was a pain in the ass to remember each time I did an update to Xcode. Cue logging in to the developer center, finding the old version of Xcode, downloading the gigantic <em>.dmg</em> file, and copying the SDK back into Xcode.</p>
+
+<p>I searched online to try and figure out how other people dealt with this problem and it seems like the <a href="http://stackoverflow.com/a/18424373/814123">overwhelming sentiment</a> is to copy the SDKs out of <em>Xcode.app</em> and symlink them back. That <em>SO</em> link has a link to a <a href="https://gist.github.com/rnapier/3370649">gist written in python</a> that was supposed to do this for me, but it didn&rsquo;t work, so I decided to write my own utility in Ruby to manage this process for me.</p>
+
+<p>Essentially, you can run this as soon as you update Xcode and it will preserve your old SDK files, copy any new or current SDK files into an <em>/SDKs</em> folder on your computer and then symlink them all back into Xcode&hellip; ==even your old one that this version of Xcode didn&rsquo;t come with==.</p>
+
+<p>Here&rsquo;s the script. All you have to do is create the <em>/SDKs</em> folder, and run this script (with <code>sudo</code>, and don&rsquo;t forget to <code>chmod +x</code> the file). It&rsquo;s friendly and will tell you what it is doing every step of the way!</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#!/usr/bin/env ruby</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># fix-xcode</span>
+</span><span class='line'><span class="c1">#   Mark Rickert &lt;mjar81@gmail.com&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Symlinks all your old SDKs to Xcode.app every time it is updated.</span>
+</span><span class='line'><span class="c1"># Create a directory called /SDKs and run this script.</span>
+</span><span class='line'><span class="c1">#</span>
+</span><span class='line'><span class="c1"># Each time you upgrade Xcode, run fix-xcode.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;FileUtils&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">main</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Find all the SDKs in Xcode.app that aren&#39;t symlinks.</span>
+</span><span class='line'>  <span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">xcode_path</span><span class="si">}</span><span class="s2">/Platforms/*.platform/Developer/SDKs/*.sdk&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">sdk</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">basename</span> <span class="o">=</span> <span class="n">sdk</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+</span><span class='line'>    <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">symlink?</span><span class="p">(</span><span class="n">sdk</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">basename</span><span class="si">}</span><span class="s2"> is already symlinked... skipping.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>      <span class="k">next</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Processing: </span><span class="si">#{</span><span class="n">basename</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># Remove the old version if it exists</span>
+</span><span class='line'>    <span class="n">destination</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">sdk_path</span><span class="si">}</span><span class="s2">/</span><span class="si">#{</span><span class="n">basename</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">directory?</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span>
+</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot; - Removing existing SDK: </span><span class="si">#{</span><span class="n">destination</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>      <span class="no">FileUtils</span><span class="o">.</span><span class="n">rm_rf</span> <span class="n">destination</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot; - Moving the Xcode version into place in </span><span class="si">#{</span><span class="n">sdk_path</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="no">FileUtils</span><span class="o">.</span><span class="n">mv</span> <span class="n">sdk</span><span class="p">,</span> <span class="n">sdk_path</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">sdk_path</span><span class="si">}</span><span class="s2">/*.sdk&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">sdk</span><span class="o">|</span>
+</span><span class='line'>    <span class="n">sdk_name</span> <span class="o">=</span> <span class="n">sdk</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">last</span>
+</span><span class='line'>    <span class="n">sdk_platform</span> <span class="o">=</span> <span class="n">sdk_name</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/[a-zA-Z]{3,}/</span><span class="p">)</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">ln_dest</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">xcode_path</span><span class="si">}</span><span class="s2">/Platforms/</span><span class="si">#{</span><span class="n">sdk_platform</span><span class="si">}</span><span class="s2">.platform/Developer/SDKs/</span><span class="si">#{</span><span class="n">sdk_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot; - Symlinking </span><span class="si">#{</span><span class="n">sdk_platform</span><span class="si">}</span><span class="s2">.</span><span class="se">\n</span><span class="s2">&quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="no">FileUtils</span><span class="o">.</span><span class="n">ln_sf</span> <span class="n">sdk</span><span class="p">,</span> <span class="n">ln_dest</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Done! Your SDKs now live in </span><span class="si">#{</span><span class="n">sdk_path</span><span class="si">}</span><span class="s2"> and are symlinked properly into the Xcode.app.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">xcode_path</span>
+</span><span class='line'>  <span class="sb">`xcode-select --print-path`</span><span class="o">.</span><span class="n">chomp</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">sdk_path</span>
+</span><span class='line'>  <span class="s2">&quot;/SDKs&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">remove_sdk</span> <span class="n">version</span>
+</span><span class='line'>  <span class="c1"># Remove the iOS SDK from xcode.</span>
+</span><span class='line'>  <span class="n">version</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">to_s</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;.0&quot;</span> <span class="k">if</span> <span class="n">version</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">length</span> <span class="o">==</span> <span class="mi">1</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">29</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Removing the iOS </span><span class="si">#{</span><span class="n">version</span><span class="si">}</span><span class="s2"> SDK from the Xcode Bundle.&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">29</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">removing</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">xcode_path</span><span class="si">}</span><span class="s2">/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS</span><span class="si">#{</span><span class="n">version</span><span class="si">}</span><span class="s2">.sdk&quot;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span> <span class="n">removing</span>
+</span><span class='line'>    <span class="no">FileUtils</span><span class="o">.</span><span class="n">rm_rf</span> <span class="n">removing</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;SDK successfully removed. Please restart Xcode.&quot;</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;Couldn&#39;t find that SDK at path: </span><span class="si">#{</span><span class="n">removing</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="no">ARGV</span><span class="o">.</span><span class="n">count</span> <span class="o">==</span> <span class="mi">2</span>
+</span><span class='line'>  <span class="k">if</span> <span class="no">ARGV</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="s2">&quot;remove&quot;</span>
+</span><span class='line'>    <span class="nb">abort</span> <span class="s2">&quot;Please pass another parameter specifying what SDK to remove.&quot;</span> <span class="k">unless</span> <span class="no">ARGV</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</span><span class='line'>    <span class="n">remove_sdk</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="no">ARGV</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">29</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;Running Fixing Xcode.app SDK Paths.&quot;</span>
+</span><span class='line'>  <span class="nb">puts</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">29</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">main</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here&rsquo;s a link to the Gist: <a href="https://gist.github.com/markrickert/7459455">https://gist.github.com/markrickert/7459455</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Rickert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-14T00:00:00Z" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.markrickert.me/blog/crap-an-xcode-update-wiped-out-my-ios-6-sdk-again/" data-via="" data-counturl="http://blog.markrickert.me/blog/crap-an-xcode-update-wiped-out-my-ios-6-sdk-again/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/using-reveal-with-rubymotion/" title="Previous Post: Using Reveal with RubyMotion">&laquo; Using Reveal with RubyMotion</a>
+      
+      
+        <a class="basic-alignment right" href="/renaming-your-ios-app/" title="Next Post: Renaming Your iOS App">Renaming Your iOS App &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/questions-and-answers/">Questions and Answers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/homeless-by-choice/">Homeless By Choice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/prepending-the-default-rubymotion-build-task/">Prepending the Default RubyMotion Build Task</a>
+      </li>
+    
+      <li class="post">
+        <a href="/one-month-living-in-a-van/">One Month Living in a Van</a>
+      </li>
+    
+      <li class="post">
+        <a href="/listening-to-user-feature-requests/">Listening to User Feature Requests</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Mark Rickert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

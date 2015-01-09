@@ -1,0 +1,253 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using Reveal with RubyMotion - Mark Rickert</title>
+  <meta name="author" content="Mark Rickert">
+
+  
+  <meta name="description" content="With today&rsquo;s release of Reveal 1.0, I thought I&rsquo;d highlight how easy it is to integrate into your RubyMotion project. If you don&rsquo;t &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.markrickert.me/blog/using-reveal-with-rubymotion/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Mark Rickert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Mark Rickert</a></h1>
+  
+    <h2>Digital Nomad</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.markrickert.me/blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using Reveal With RubyMotion</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T00:00:00Z" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>With today&rsquo;s release of <a href="http://revealapp.com/">Reveal 1.0</a>, I thought I&rsquo;d highlight how easy it is to integrate into your RubyMotion project. If you don&rsquo;t know, Reveal is a neat tool that allows you to inspect almost anything about your iOS application in a 3D, exploded view.</p>
+
+<p>According to their integration guide, you can use their <code>Reveal.framework</code> or a more complicated integrated of their dynamic library. Luckily, they&rsquo;ve provided <a href="https://github.com/CocoaPods/Specs/blob/master/Reveal-iOS-SDK/1.0.0/Reveal-iOS-SDK.podspec">a CocoaPod</a> for easy integration into your project and since RubyMotion supports CocoaPods integration by default, it&rsquo;s a snap to use Reveal!</p>
+
+<p>First things first: we don&rsquo;t <em>ever</em> want to ship the application with the Reveal framework in it, so we&rsquo;re going to add a second <code>app.pods</code> block inside the <code>app.development</code> block like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">app</span><span class="o">.</span><span class="n">development</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">app</span><span class="o">.</span><span class="n">pods</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">pod</span> <span class="s2">&quot;Reveal-iOS-SDK&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This will ensure that when you run <code>rake archive:distribution</code> to compile for the App Store that the Reveal framework will not be present in your app.</p>
+
+<p>Then go to the commandline and run a few commands (these assume you&rsquo;re using the most recent version of <code>motion-cocoapods</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bundle update
+</span><span class='line'>rake pod:install
+</span><span class='line'>rake
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You should see your app compile and in the console you&rsquo;ll see something like <code>2013-10-15 09:16:50.121 YourApp[47334:a0b]  INFO: Reveal server started.</code> to let you know that the integration was successful.</p>
+
+<p>Now fire up Reveal and you should see your app in the dropdown in the top left.</p>
+
+<p>Have fun debugging with Reveal. Its a powerful tool and even has a 30-day free trial so you can check it out before you buy! I&rsquo;m excited to see how this changes my development and debugging practices.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Rickert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T00:00:00Z" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.markrickert.me/blog/using-reveal-with-rubymotion/" data-via="" data-counturl="http://blog.markrickert.me/blog/using-reveal-with-rubymotion/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/those-pesky-new-ios-7-icon-sizes/" title="Previous Post: Those pesky new iOS 7 Icon Sizes">&laquo; Those pesky new iOS 7 Icon Sizes</a>
+      
+      
+        <a class="basic-alignment right" href="/crap-an-xcode-update-wiped-out-my-ios-6-sdk-again/" title="Next Post: Crap! An Xcode Update Wiped Out My iOS 6 SDK Again!">Crap! An Xcode Update Wiped Out My iOS 6 SDK Again! &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/questions-and-answers/">Questions and Answers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/homeless-by-choice/">Homeless By Choice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/prepending-the-default-rubymotion-build-task/">Prepending the Default RubyMotion Build Task</a>
+      </li>
+    
+      <li class="post">
+        <a href="/one-month-living-in-a-van/">One Month Living in a Van</a>
+      </li>
+    
+      <li class="post">
+        <a href="/listening-to-user-feature-requests/">Listening to User Feature Requests</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Mark Rickert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>

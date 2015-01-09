@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Renaming Your iOS App - Mark Rickert</title>
+  <meta name="author" content="Mark Rickert">
+
+  
+  <meta name="description" content="Why I recently released Texties - a fun way to use unicode artwork and generate weird and upside down translations of text. I thought it was a really &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.markrickert.me/blog/renaming-your-ios-app/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Mark Rickert" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=Arvo:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="/">Mark Rickert</a></h1>
+  
+    <h2>Digital Nomad</h2>
+  
+</hgroup>
+
+</header>
+  <div id="navigation">
+    <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.markrickert.me/blog" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  </div>
+  <div id="body"  >
+    <div id="main">
+      <div id="content">
+        <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Renaming Your iOS App</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-07T00:00:00Z" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Why</h2>
+
+<p>I recently released <a href="http://www.mohawkapps.com/app/textables/">Texties</a> - a fun way to use unicode artwork and generate weird and upside down translations of text. I thought it was a really fun app and so did a lot of my friends. However, once it got into the app store, I was seeing a measly 1 download every 2-3 days. How on earth could this happen? I set out (along with some support from my friend <a href="http://www.andrewgertig.com/">Andrew Gertig</a>) to figure out what was going on.</p>
+
+<p>The first thing I did was a search for “texties” on my iPhone. 2200 search results including “InstaCollage”, Facebook Messenger, Facebook, and lots of photo apps. Shouldn’t an exact text search of the name of the app show that app first on the list?</p>
+
+<p>Apparently, no. <a href="http://soff.es/">Sam Soffes’s</a> app <a href="http://getsharesapp.com/">Shares</a> shows up 11th on a search for “shares” (also with 2200 results) despite being featured by Apple in the finance category.</p>
+
+<p>Sam <a href="https://twitter.com/soffes/status/417753933223059456">tweeted me</a> and got me thinking that Apple is doing some really strange text autocorrection to search terms. It seems that an App Store search for “txts” results in the same exact results in the same exact order as “texties”. ==Seriously, Apple?!==</p>
+
+<p>It seemed that a name change was in order. I thought <em>Texties</em> was a really great name. It was fun, whimsical, rhymed with testes (thanks <a href="https://twitter.com/ahow">Adam</a>), and could be used singularly to describe an individual <em>Textie</em> that you would send to people.</p>
+
+<p>Ultimately, I settled on the new name: <em>Textables</em>. Even though it’s a bit longer and doesn’t rhyme with male genetalia, it still had the ability to be singularized. Most importantly, there were only three search results for the exact word! ==Eureka!==</p>
+
+<h2>How</h2>
+
+<p>Renaming an app is no simple task. You don’t realize how many places you put the app name:</p>
+
+<ul>
+<li>iTunes Connect metadata</li>
+<li>Your personal/company site</li>
+<li>Inside carefully crafted screenshots</li>
+<li>Github repositories</li>
+<li>Social media</li>
+<li>Within the app itself</li>
+</ul>
+
+
+<p>==iTunes Connect== is pretty easy. Just create a new version of the app and edit the metadata, changing all the instances of the original name over to the new name. Don’t forget about the keywords and description.</p>
+
+<p>I’ve got my own company ==website== where I promote my apps but I had purchased textiesapp.com to use as a forwarding url to the product page on my site. Looks like that’s $10 I’ll never recoup the costs on. I decided not to purchase a vanity domain for Textables so I simply changed the app name on my site and the permalink (making sure to forward the old Texties url to the new Textables url) and updated the forwarding of the vanity URL.</p>
+
+<p>The ==app screenshots== were the most difficult and time consuming thing to change. This was the first app where I had used <a href="https://github.com/MohawkApps/Textables/#screenshots">an image of an iPhone in the screenshots</a> with text overlaid on the image. So not only did I have to re-take the screenshots, I also had to do a bunch of text editing in order to change the text in the images and reposition the new screenshots in the images. This took me a few hours to complete.</p>
+
+<p>Changing your ==github repository== name is really easy. Just rename it and github forwards all traffic from the old url to the new url. I had to spend some time and update the <code>Readme.md</code> file to reference the new name.</p>
+
+<p>I had only set up one ==social media== account for Texties. Changing @TextiesApp to <a href="https://twitter.com/textablesapp">@TextablesApp</a> was pretty straightforward in the Twitter account preferences.</p>
+
+<p>Changing the app’s name in ==the app itself== would probably sound like the most time consuming part of this whole process, but it wasn’t. I’m using <a href="http://www.rubymotion.com/">RubyMotion</a> for Textables and with a simple change of the <code>app.name</code> in the <code>Rakefile</code> and a change of the folder name in my working directory, the app was completely renamed. The word “Texties” shows up in the app no less than 10 times, but I use <a href="http://www.bubblewrap.io">BubbleWrap’s</a> <code>App.name</code> shortcut everywhere. I never hardcoded “Texties” into the app anywhere except in the <code>Rakefile</code>. <em>Neat, huh?</em></p>
+
+<p>So off I went to complete the rest of the deploy procedure:</p>
+
+<ol>
+<li><p>Increment version numbers in the project</p></li>
+<li><p>Mark app version as binary ready to upload in iTC</p></li>
+<li><p>Run <code>rake archive:distribution</code> to create the files</p></li>
+<li><p>Copy the <code>build</code> folder over to my <code>releases</code> folder (I keep binaries and dsyms for every release)</p></li>
+<li><p>Use <code>Application Loader.app</code> to submit the binary to Apple</p></li>
+<li><p>…</p></li>
+<li><p>Profit!</p></li>
+</ol>
+
+
+<p>Keeping my code <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> and setting up the code to use text variables instead of hardcoding text all over the place made it extremely easy to change the name of my app in the app itself. Thanks to RubyMotion and Bubblewrap, all I really had to do was change the variable in the <code>Rakefile</code>. the majority of the time was spent updating metadata and images.</p>
+
+<p>So hopefully this new name change will have a net positive effect on Textables.</p>
+
+<p><a href="https://itunes.apple.com/us/app/textables-unicode-ascii-art/id769404785?mt=8&amp;uo=4&amp;at=10l4yY&amp;ct=blog-renaming">Check it out on the App Store for $0.99!</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mark Rickert</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-07T00:00:00Z" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.markrickert.me/blog/renaming-your-ios-app/" data-via="" data-counturl="http://blog.markrickert.me/blog/renaming-your-ios-app/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/crap-an-xcode-update-wiped-out-my-ios-6-sdk-again/" title="Previous Post: Crap! An Xcode Update Wiped Out My iOS 6 SDK Again!">&laquo; Crap! An Xcode Update Wiped Out My iOS 6 SDK Again!</a>
+      
+      
+        <a class="basic-alignment right" href="/overriding-bubblewrap-methods/" title="Next Post: Overriding BubbleWrap Methods">Overriding BubbleWrap Methods &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/questions-and-answers/">Questions and Answers</a>
+      </li>
+    
+      <li class="post">
+        <a href="/homeless-by-choice/">Homeless By Choice</a>
+      </li>
+    
+      <li class="post">
+        <a href="/prepending-the-default-rubymotion-build-task/">Prepending the Default RubyMotion Build Task</a>
+      </li>
+    
+      <li class="post">
+        <a href="/one-month-living-in-a-van/">One Month Living in a Van</a>
+      </li>
+    
+      <li class="post">
+        <a href="/listening-to-user-feature-requests/">Listening to User Feature Requests</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+      </div>
+    </div>
+    <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Mark Rickert -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>. Design by <a href="http://octopressthemes.com">Octopress Themes</a></span>
+</p>
+
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+  </div>
+</body>
+</html>
