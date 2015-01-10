@@ -48,7 +48,7 @@ Sleeping isn’t a problem when I’m in a family members’ driveway. When I’
 
 I prefer finding some public land to sleep on. It’s almost always off the beaten path, but usually worth it in terms of view and solitude. I spent a night in the panhandle of Texas one night where I was able to see the Milky Way Galaxy clearer than I’d ever seen it before. The 40 minutes down a dirt road to find the land was worth it.
 
-I’ve stayed at RV parks a few times but try to stay away form places I have to pay to sleep. Dumping my RV’s tanks costs about $20 and a night at an RV park is usually $30-$40. It’s really a minimal cost for the electricity on top of getting to dump my tanks. I only do this when my tanks are full and typically only stay one night.
+I’ve stayed at RV parks a few times but try to stay away from places I have to pay to sleep. Dumping my RV’s tanks costs about $20 and a night at an RV park is usually $30-$40. It’s really a minimal cost for the electricity on top of getting to dump my tanks. I only do this when my tanks are full and typically only stay one night.
 
 ### Long hours of driving
 
